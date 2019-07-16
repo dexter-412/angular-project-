@@ -1,0 +1,28 @@
+<div class="col-md-12">
+
+  <input type="text" class="form-control mb-2" placeholder="Введіть для пошуку по назві" [(ngModel)]="searchMed">
+  <input type="text" class="form-control mb-2" placeholder="Введіть для пошуку по виробнику" [(ngModel)]="searchMedman">
+
+  <hr>
+
+  <div class="med-item" *ngFor="let medicine of medicineList | TitleFilterPipe:searchMed | manufacFilter:searchMedman">
+    <div class="left-side">
+      <div class="text-primary">{{ medicine.price }} грн.</div>
+      <div class="text-success">{{ medicine.count }} шт.</div>
+    </div>
+    <div class="right-side">
+      <div class="title-item">
+       Назва: {{ medicine.title }}
+      </div>
+      <div class="desc-item">
+       <b>Виробник:</b> {{ medicine.recommend }}
+      </div>
+      <div class="desc">
+       <b>Опис:</b>  {{ medicine.description }}
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

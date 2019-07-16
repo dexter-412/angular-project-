@@ -1,0 +1,18 @@
+<div class="modal fade show" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-danger">Помилка!</h4>
+        <button (click)="backToLogin()" type="button" class="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger text-center">Email або пароль введені не правильно</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="backToLogin()" type="button" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

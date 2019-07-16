@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/" *ngIf="!userLoggedIn">Аптека добра</a>
+    <a class="navbar-brand" routerLink="/account" *ngIf="userLoggedIn">Аптека добра</a>
+    <button class="navbar-toggler" type="button" (click)="collapse.toggle('slow')" aria-controls="collapseManual">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" #collapse="bs-collapse" [collapse]="isOpen">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item text-center" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!userLoggedIn">
+          <a class="nav-link" (click)="collapse.toggle('slow')" routerLink="/login">Вхід</a>
+        </li>
+        <li class="nav-item text-center" routerLinkActive="active" *ngIf="!userLoggedIn">
+          <a class="nav-link" (click)="collapse.toggle('slow')" routerLink="/registration">Реєстрація</a>
+        </li>
+        <li class="nav-item text-center" routerLinkActive="active" *ngIf="userLoggedIn">
+          <a class="nav-link" (click)="collapse.toggle('slow')" routerLink="/account">Кабінет провізора</a>
+        </li>
+
+        <li class="nav-item text-center" routerLinkActive="active" *ngIf="userLoggedIn">
+          <a class="nav-link" (click)="collapse.toggle('slow');" routerLink="/product-control">Управління товаром</a>
+        </li>
+
+        <li class="nav-item text-center" routerLinkActive="active" *ngIf="userLoggedIn">
+          <a class="nav-link" (click)="collapse.toggle('slow');" routerLink="/account/edit">Профіль провізора</a>
+        </li>
+
+        <!--<li class="nav-item text-center" routerLinkActive="active" *ngIf="userLoggedIn">-->
+          <!--<a class="nav-link" (click)="collapse.toggle('slow');">Календар змін провізора</a>-->
+        <!--</li>-->
+
+        <li class="nav-item text-center" routerLinkActive="active" *ngIf="userLoggedIn">
+          <a class="nav-link" (click)="collapse.toggle('slow'); logOut()">Вихід</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--<input *ngIf="user.userRole == 'admin'" routerLink="adminPanel" type="submit" class="btn btn-primary btn-sm" value="Адмін панель">-->
+<!--<input routerLink="edit" type="submit" class="btn btn-primary btn-sm" value="Редагувати профіль">-->
+<!--<input routerLink="edit" type="submit" class="btn btn-primary btn-sm" value="Календар змін провізора">-->

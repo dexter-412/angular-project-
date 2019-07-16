@@ -1,0 +1,89 @@
+<div class="container emp-profile" *ngIf="user.firstName">
+  <div class="row">
+    <!--<div class="col-md-4">-->
+      <!--<div class="profile-img">-->
+        <!--<img-->
+          <!--src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"-->
+          <!--alt=""/>-->
+      <!--</div>-->
+      <!--<div class="text-center mt-4 mb-4">-->
+        <!--<button class="btn btn-primary btn-block" type="button">Змінити фото</button>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-12">
+      <div class="row">
+        <div class="profile-head col-md-6 col-sm-6 col-6">
+          <h5>
+            Введіть свою нову інформацію
+          </h5>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6 function-btns text-right">
+          <input (click)="saveChanges()" type="submit" class="btn btn-primary btn-sm mr-2 btn-success" value="Зберегти"
+                 [disabled]="changeUserDataForm.invalid">
+          <input (click)="cancelChanges()" type="submit" class="btn btn-primary btn-sm btn-danger" value="Відмінити">
+        </div>
+        <div class="col-md-12 mt-4">
+          <form [formGroup]="changeUserDataForm">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 ">
+                <label>Ім'я</label>
+              </div>
+              <div class="col-md-6 col-sm-6  text-right">
+                <input type="text" class="form-control" formControlName="firstName">
+                <div class="text-danger" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                  <div *ngIf="firstName.errors['required']">Обов'язкове поле</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <label>Прізвище</label>
+              </div>
+              <div class="col-md-6 col-sm-12  text-right">
+                <input type="text" class="form-control" formControlName="lastName">
+                <div class="text-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                  <div *ngIf="lastName.errors['required']">Обов'язкове поле</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12 ">
+                <label>Вік</label>
+              </div>
+              <div class="col-md-6 col-sm-12  text-right">
+                <input type="number" class="form-control" formControlName="age">
+                <div class="text-danger" *ngIf="age.invalid && (age.dirty || age.touched)">
+                  <div *ngIf="age.errors['required']">Обов'язкове поле</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12 ">
+                <label>Пароль</label>
+              </div>
+              <div class="col-md-6 col-sm-12 text-right">
+                <input type="password" class="form-control" formControlName="password">
+                <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+                  <div *ngIf="password.errors['required']">Обов'язкове поле</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12col-6">
+                <label>Підтвердження паролю</label>
+              </div>
+              <div class="col-md-6 col-sm-12  text-right">
+                <input type="password" class="form-control" formControlName="passwordConfirm">
+                <div class="text-danger"
+                     *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
+                  <div *ngIf="passwordConfirm.errors['required']">Обов'язкове поле</div>
+                  <div *ngIf="passwordConfirm.errors['compare']">Пароль не підтвердженно</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

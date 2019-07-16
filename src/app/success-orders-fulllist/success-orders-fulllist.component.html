@@ -1,0 +1,6 @@
+<ul class="list-group">
+  <li mat-raised-button (click)="openModalOrder(successOrder.id)" class="list-group-item list-group-item-action" *ngFor="let successOrder of successOrderList">
+      <span> №: {{successOrder.id}} </span>
+      <span>Дата: {{successOrder.date}} </span>
+  </li>
+</ul>

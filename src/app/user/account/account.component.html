@@ -1,0 +1,144 @@
+<div class="container emp-profile">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="profile-img">
+        <!--<img-->
+          <!--src="https://www.gravatar.com/avatar/ea41702be6bc8aaab3f62a20184b0cc8?size=200&d=https%3A%2F%2Fsalesforce-developer.ru%2Fwp-content%2Fuploads%2Favatars%2Fno-avatar.jpg"-->
+          <!--alt=""/>-->
+        <h5> Провізор:
+        {{user.firstName}} {{user.lastName}}
+      </h5>
+      </div>
+      <div class="text-center mt-4 mb-4">
+        <!--<input type="submit" value="Календар змін провізора" class="btn btn-block btn-primary btn-succes">-->
+        <input class="btn btn-primary btn-block" type="submit" routerLink="/make-order" value="Оформити замовлення">
+        <input class="btn btn-primary btn-block" type="submit" routerLink="/catalog" value="Пошук препарату">
+        <!--внести категории при поиске и заказе
+          у препаратов должен біть производитель и поставщик
+        -->
+        <input class="btn btn-primary btn-block" type="submit" routerLink="/order-supplies" value="Замовлення ліків постачальнику">
+        <!--для замевлення ліків постачальнику
+            откріить отдельную страницу с формай заказа и возможностью просматривать приходние и выходние документы
+            поставить птичку продано по рецепту
+        -->
+
+        <!--<input class="btn btn-primary btn-block" type="submit" routerLink="/catalog" value="Остачі на складі">-->
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="profile-head col-md-6 col-sm-6 col-6">
+          <!--<h5>-->
+            <!--{{user.firstName}} {{user.lastName}}-->
+          <!--</h5>-->
+        </div>
+        <div class="col-md-8 col-sm-8 col-8 text-right">
+          <!--<input *ngIf="user.userRole == 'admin'" routerLink="adminPanel" type="submit" class="btn btn-primary btn-sm" value="Адмін панель">-->
+          <!--<input routerLink="edit" type="submit" class="btn btn-primary btn-sm" value="Редагувати профіль">-->
+          <!--<input routerLink="edit" type="submit" class="btn btn-primary btn-sm" value="Календар змін провізора">-->
+        </div>
+        <div class="col-md-12 mt-4">
+          <tabset>
+            <tab heading="Оформленні замовлення">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                  <div>
+                    <ul class="list-group">
+                      <li mat-raised-button (click)="openModalOrder(successOrder.id)" class="account-succes-order list-group-item list-group-item-action" *ngFor="let successOrder of successOrderList | slice:0:5">
+                        <a >
+                          <span> №: {{successOrder.id}}  </span>
+                          <span>Дата: {{successOrder.date}} </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <input class="btn btn-primary btn-block" type="submit" routerLink="/all-success-orders" value="Повний список">
+                  </div>
+                </div>
+
+              </div>
+            </tab>
+            <!--<tab heading="Чеки проданих товарів">-->
+              <!--<div class="row">-->
+                <!--<div class="col-md-12 col-sm-12 col-12">-->
+                  <!--<label>-->
+                    <!--<ul class="list-group">-->
+                      <!--<li class="list-group-item list-group-item-action" *ngFor="let check of checksComplete | slice:0:5">-->
+                        <!--<a href="#"  >-->
+                        <!--<span>Чек №: {{check.id}}  </span>-->
+                        <!--<span>Дата: {{check.date}} </span>-->
+                        <!--<span>Номер замовлення: {{check.orderId}}</span>-->
+                        <!--</a>-->
+                      <!--</li>-->
+                    <!--</ul>-->
+                  <!--</label>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</tab>-->
+            <tab heading="Остачі на складі" [customClass]="medicineList.length ? 'tab-warning' : ''">
+              <div class="product-search-box" *ngIf="medicineList.length; else orderListEmpty">
+                <p>Препарати, яких залишилося менше 5ти на складі</p>
+                <div class="row">
+                <div class="title-item col-md-3 col-xs-12">
+                  Назва
+                </div>
+                <div class="title-item col-md-3 col-xs-12">Виробник </div>
+                <div class="title-item col-md-3 col-xs-12">Ціна</div>
+                <div class="title-item col-md-3 col-xs-12">Кількість</div>
+                </div>
+                <hr>
+                <div class="med-item" *ngFor="let medicine of medicineList">
+                  <div class="row">
+                    <div class="title-item col-md-3 col-xs-12">
+                      {{ medicine.title }}
+                    </div>
+                    <div class="text-primary col-md-3 col-xs-12">{{ medicine.recommend }} </div>
+                    <div class="text-primary col-md-3 col-xs-12">{{ medicine.price }} грн.</div>
+                    <div class="text-success col-md-3 col-xs-12">{{ medicine.count }} шт.</div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+              <ng-template class="order-list-empty" #orderListEmpty>
+                <p>Усіх ліків вистачає, гарна робота!</p>
+              </ng-template>
+            </tab>
+            <tab heading="Дані провізора">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-6">
+                  <label>Ім'я</label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-6 text-right">
+                  <p>{{user.firstName}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-6">
+                  <label>Прізвище</label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-6 text-right">
+                  <p>{{user.lastName}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-6">
+                  <label>Вік</label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-6 text-right">
+                  <p>{{user.age}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-6">
+                  <label>Email</label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-6 text-right">
+                  <p>{{user.email}}</p>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

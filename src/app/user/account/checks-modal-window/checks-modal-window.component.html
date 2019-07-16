@@ -1,0 +1,39 @@
+<div>
+  <div id="checkBody">
+    <div class="modal-header">
+      <div>Замовлення: <b>{{data.id}}</b></div>
+      <div>Дата: <b>{{data.date}}</b></div>
+    </div>
+    <div class="modal-body">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Артикул</th>
+          <th>Назва</th>
+          <th>Кількість</th>
+          <th>Ціна</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let med of data.medList">
+          <td>000{{med.id}}</td>
+          <td>{{med.title}}</td>
+          <td>{{med.count}}</td>
+          <td>{{med.price}} грн.</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="text-right text-primary ">
+        <b>Ціна {{totalPrice}} грн.</b> <br>
+        <b>Знижка {{data.saleCost}} грн.</b> <br>
+        <b>Усього {{data.totalPrice}} грн.</b>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-md" (click)="printCheck()">Друкувати</button>
+    <button mat-raised-button [mat-dialog-close]="true" class="btn btn-primary btn-md">Закрити</button>
+  </div>
+</div>
+
+

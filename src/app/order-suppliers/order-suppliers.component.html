@@ -1,0 +1,41 @@
+<div class="container">
+  <h3>Створити замовлення постачальнику</h3>
+  <input type="date" [(ngModel)]="orderDate">
+  <p class="danger-box" *ngIf="emptyDateInput">Оберіть дату замовлення</p>
+  <hr>
+  <form [formGroup]="addMedicineToOrderForm">
+    <div class="form-group">
+      <label>Назва</label>
+      <input type="text" class="form-control" formControlName="title">
+      <div class="text-danger" *ngIf="title.invalid && (title.dirty || title.touched)">
+        <div *ngIf="title.errors['required']">Обов'язкове поле</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Кількість</label>
+      <input type="number" class="form-control" formControlName="count">
+      <div class="text-danger" *ngIf="count.invalid && (count.dirty || count.touched)">
+        <div *ngIf="count.errors['required']">Обов'язкове поле</div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary" [disabled]="addMedicineToOrderForm.invalid" type="button" (click)="addMedicineToOrder()">Додати до замовлення</button>
+    </div>
+  </form>
+  <hr>
+  <ng-container *ngIf="orderList.length; else orderListEmpty">
+    <div class="row">
+      <div class="medicine col-md-3 col-sm-6 col-xs-12" *ngFor="let orderMedicine of orderList; let i = index">
+        <div class="title-item">{{ orderMedicine.title }}</div>
+        <div class="text-success">{{ orderMedicine.count }} шт.</div>
+        <a class="remove-from-order" (click)="removeFromOrder(i)">Видалити з замовлення</a>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template class="order-list-empty" #orderListEmpty>
+    <p>Ваше замовлення порожнє</p>
+  </ng-template>
+  <div class="submit-order">
+    <button class="btn btn-primary" [disabled]="!orderList.length" type="button" (click)="createOrder()">Створити замовлення</button>
+  </div>
+</div>

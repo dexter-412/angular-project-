@@ -1,0 +1,54 @@
+.med-item {
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.medicine-actions {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.medicine-actions i {
+  cursor: pointer;
+}
+
+.med-item-title {
+  font-size: 20px;
+}
+
+.med-item-point-title {
+  text-decoration: underline;
+}
+
+textarea {
+  min-height: 200px;
+  resize: none;
+}
+
+.add-new-medicine {
+  transition: all 0.3s linear;
+  padding: 0 10px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+  max-height: 45px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  cursor: pointer;
+  background: #ced4da;
+}
+
+.add-new-medicine.active {
+  max-height: 1000px;
+  background: #fff;
+}
+
+.add-new-medicine-title {
+  text-align: center;
+  padding: 10px;
+}

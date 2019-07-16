@@ -1,0 +1,112 @@
+<div class="container">
+  <h3>База ліків</h3>
+  <div class="existing-medicines">
+    <input type="text" class="form-control mb-2" placeholder="Введіть для пошуку по назві" [(ngModel)]="searchMed">
+    <input type="text" class="form-control mb-2" placeholder="Введіть для пошуку по виробнику" [(ngModel)]="searchMedman">
+    <hr>
+    <div class="medicines">
+      <div [className]="addNewMedicineWindow ? 'add-new-medicine active' : 'add-new-medicine'">
+        <p class="add-new-medicine-title" (click)="openAddNewMedicineWindow()">Додати ліки</p>
+        <form [formGroup]="addNewMedicineForm">
+          <div class="form-group">
+            <label>Назва</label>
+            <input type="text" class="form-control" formControlName="newMedicineTitle">
+            <div class="text-danger" *ngIf="newMedicineTitle.invalid && (newMedicineTitle.dirty || newMedicineTitle.touched)">
+              <div *ngIf="newMedicineTitle.errors['required']">Обов'язкове поле</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Ціна (грн)</label>
+            <input type="number" class="form-control" formControlName="newMedicinePrice">
+            <div class="text-danger" *ngIf="newMedicinePrice.invalid && (newMedicinePrice.dirty || newMedicinePrice.touched)">
+              <div *ngIf="newMedicinePrice.errors['required']">Обов'язкове поле</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Виробник</label>
+            <input type="text" class="form-control" formControlName="newMedicineRecommend">
+            <div class="text-danger" *ngIf="newMedicineRecommend.invalid && (newMedicineRecommend.dirty || newMedicineRecommend.touched)">
+              <div *ngIf="newMedicineRecommend.errors['required']">Обов'язкове поле</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Кількість</label>
+            <input type="number" class="form-control" formControlName="newMedicineCount">
+            <div class="text-danger" *ngIf="newMedicineCount.invalid && (newMedicineCount.dirty || newMedicineCount.touched)">
+              <div *ngIf="newMedicineCount.errors['required']">Обов'язкове поле</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Опис</label>
+            <textarea type="text" class="form-control" formControlName="newMedicineDescription"></textarea>
+            <div class="text-danger" *ngIf="newMedicineDescription.invalid && (newMedicineDescription.dirty || newMedicineDescription.touched)">
+              <div *ngIf="newMedicineDescription.errors['required']">Обов'язкове поле</div>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <button class="btn btn-primary" [disabled]="addNewMedicineForm.invalid" type="button" (click)="addNewMedicine()">Зберегти</button>
+            <button class="btn btn-danger ml-2" type="button" (click)="cancelAddNewMedicine()">Скасувати</button>
+          </div>
+        </form>
+      </div>
+      <div class="med-item" *ngFor="let medicine of medicineList | TitleFilterPipe:searchMed | manufacFilter:searchMedman; let i = index">
+        <div *ngIf="medicine.id !== currentEditMedicineId; else editMedicine">
+          <p class="med-item-title">{{ medicine.title }}</p>
+          <p class="med-item-title"><span class="med-item-point-title">Артикул:</span>  000{{ medicine.id }}</p>
+          <p><span class="med-item-point-title">Ціна:</span> {{ medicine.price }} грн.</p>
+          <p><span class="med-item-point-title">Виробник:</span> {{ medicine.recommend }}</p>
+          <p><span class="med-item-point-title">Кількість:</span> {{ medicine.count }} шт.</p>
+          <p><span class="med-item-point-title">Опис:</span> {{ medicine.description }}</p>
+          <div class="medicine-actions">
+            <div><i class="fas fa-edit" (click)="openMedicineEdit(medicine.id)"></i></div>
+            <div><i class="fas fa-trash-alt" (click)="removeMedicine(medicine.id)"></i></div>
+          </div>
+        </div>
+        <ng-template #editMedicine>
+          <form [formGroup]="editMedicineForm">
+            <div class="form-group">
+              <label>Назва</label>
+              <input type="text" class="form-control" formControlName="title">
+              <div class="text-danger" *ngIf="title.invalid && (title.dirty || title.touched)">
+                <div *ngIf="title.errors['required']">Обов'язкове поле</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Ціна (грн)</label>
+              <input type="number" class="form-control" formControlName="price">
+              <div class="text-danger" *ngIf="price.invalid && (price.dirty || price.touched)">
+                <div *ngIf="price.errors['required']">Обов'язкове поле</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Виробник</label>
+              <input type="text" class="form-control" formControlName="recommend">
+              <div class="text-danger" *ngIf="recommend.invalid && (recommend.dirty || recommend.touched)">
+                <div *ngIf="recommend.errors['required']">Обов'язкове поле</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Кількість</label>
+              <input type="number" class="form-control" formControlName="count">
+              <div class="text-danger" *ngIf="count.invalid && (count.dirty || count.touched)">
+                <div *ngIf="count.errors['required']">Обов'язкове поле</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Опис</label>
+              <textarea type="text" class="form-control" formControlName="description"></textarea>
+              <div class="text-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
+                <div *ngIf="description.errors['required']">Обов'язкове поле</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <button class="btn btn-primary" [disabled]="editMedicineForm.invalid" type="button" (click)="saveMedicineChanges()">Зберегти</button>
+              <button class="btn btn-danger ml-2" type="button" (click)="cancelMedicineEdit()">Скасувати</button>
+            </div>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

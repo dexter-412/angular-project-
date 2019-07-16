@@ -1,0 +1,57 @@
+<h2>Реєстрація</h2>
+<form [formGroup]="registrationForm">
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" formControlName="email">
+    <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors['required']">Обов'язкове поле</div>
+      <div *ngIf="email.errors['email']">Email введенно не вірно</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Email підтвердження</label>
+    <input type="password" class="form-control" formControlName="emailConfirm">
+    <div class="text-danger" *ngIf="emailConfirm.invalid && (emailConfirm.dirty || emailConfirm.touched)">
+      <div *ngIf="emailConfirm.errors['required']">Email підтвердження обов'язкове</div>
+      <div *ngIf="emailConfirm.errors['compare']">Email не співпадає</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Пароль</label>
+    <input type="password" class="form-control" formControlName="password">
+    <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+      <div *ngIf="password.errors['required']">Обов'язкове поле</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Пароль підтвердження</label>
+    <input type="password" class="form-control" formControlName="passwordConfirm">
+    <div class="text-danger" *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
+      <div *ngIf="passwordConfirm.errors['required']">Обов'язкове поле</div>
+      <div *ngIf="passwordConfirm.errors['compare']">Пароль не співпдає</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Ім'я</label>
+    <input type="text" class="form-control" formControlName="firstName">
+    <div class="text-danger" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+      <div *ngIf="firstName.errors['required']">Обов'язкове поле</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Прізвище</label>
+    <input type="text" class="form-control" formControlName="lastName">
+    <div class="text-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+      <div *ngIf="lastName.errors['required']">Обов'язкове поле</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Вік</label>
+    <input type="number" class="form-control" formControlName="age">
+    <div class="text-danger" *ngIf="age.invalid && (age.dirty || age.touched)">
+      <div *ngIf="age.errors['required']">Обов'язкове поле</div>
+    </div>
+  </div>
+  <button class="btn btn-primary" [disabled]="registrationForm.invalid" type="button" (click)="onSubmit()">Реєстрація</button>
+</form>
+<router-outlet></router-outlet>

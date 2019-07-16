@@ -1,0 +1,58 @@
+<div class="container">
+  <h3>Створити замовлення</h3>
+  <div class="choose-product">
+    <input type="text" class="form-control mb-2" placeholder="Введіть для пошуку по назві" [(ngModel)]="searchMed">
+    <input type="text" class="form-control mb-2" placeholder="Введіть для пошуку по виробнику" [(ngModel)]="searchMedman">
+    <hr>
+    <div class="product-search-box">
+      <div [className]="medicine.active ? 'active med-item' : 'med-item'"
+           *ngFor="let medicine of medicineList  | slice:0:5; let i = index"
+           (click)="addMedicineToOrder({id: medicine.id, title: medicine.title, count: 1, price: medicine.price, recommend: medicine.recommend})">
+        <div class="row">
+          <div class="title-item col-md-3 col-xs-12">
+            {{ medicine.title }}
+          </div>
+          <div class="text-primary col-md-3 col-xs-12">{{ medicine.recommend }}</div>
+          <div class="text-primary col-md-3 col-xs-12">{{ medicine.price }} грн.</div>
+          <div class="text-success col-md-3 col-xs-12">{{ medicine.count }} шт.</div>
+        </div>
+      </div>
+    </div>
+    <p class="danger-box" *ngIf="notEnoughMedicine">Неможливо додати, ліки закінчилися</p>
+  </div>
+  <hr>
+  <div class="new-order-info">
+    <h3>Обрані для замовлення ліки</h3>
+    <ng-container *ngIf="orderList.length; else orderListEmpty">
+      <div class="row">
+        <div class="medicine col-md-3 col-sm-6 col-xs-12" *ngFor="let orderMedicine of orderList; let i = index">
+          <div class="title-item">
+            {{ orderMedicine.title }}
+          </div>
+          <div class="title-item">
+            {{ orderMedicine.recommend }}
+          </div>
+          <div class="text-primary">{{ orderMedicine.price }} грн.</div>
+          <div class="text-success">
+            <span class="medicine-count-change decrease" (click)="changeOrderMedicineCount(i, orderMedicine.id, -1)">-</span>
+            {{ orderMedicine.count }} шт.
+            <span class="medicine-count-change increase" (click)="changeOrderMedicineCount(i, orderMedicine.id, 1)">+</span>
+          </div>
+          <a class="remove-from-order" (click)="removeFromOrder(i, orderMedicine.id, orderMedicine.count)">Видалити з замовлення</a>
+        </div>
+        <div class="col-md-12 text-primary">
+          Ввести знижку <input type="text" class="form-control" [(ngModel)]="sale" (change)="makeSail()">
+        </div>
+        <div class="col-md-12 text-primary">
+            Усього {{totalPrice | number:'1.2-2'}} грн.
+        </div>
+      </div>
+    </ng-container>
+    <ng-template class="order-list-empty" #orderListEmpty>
+      <p>Ваше замовлення порожнє</p>
+    </ng-template>
+  </div>
+  <div class="submit-order">
+    <button class="btn btn-primary" [disabled]="!orderList.length" type="button" (click)="createOrder()">Створити замовлення</button>
+  </div>
+</div>
